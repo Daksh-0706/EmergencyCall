@@ -1,4 +1,4 @@
-# EmergencyCall — Offline Emergency Alert System
+# EmergencyCall — Offline Emergency Alert System (In Progress: Not Ready to Work)
 
 A two-phone emergency system for Android 12+ that works completely offline using Google's Nearby Connections API (Bluetooth/Wi-Fi Direct).
 
