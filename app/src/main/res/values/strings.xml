@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">EmergencyCall</string>
+    <!-- Single shared service ID used by BOTH roles for BOTH advertising and
+         discovery. Google's canonical Nearby Connections pattern; matches the
+         manifest meta-data (com.emergencycall.nearby) so the service hash used
+         for BLE discovery matches on every device. -->
+    <string name="service_id">com.emergencycall.nearby</string>
+    <string name="service_id_patient">com.emergencycall.patient</string>
+    <string name="service_id_caregiver">com.emergencycall.caregiver</string>
+
+    <!-- Role Selection -->
+    <string name="patient_role">PATIENT</string>
+    <string name="patient_subtitle">Press one button to call for help</string>
+    <string name="caregiver_role">CAREGIVER</string>
+    <string name="caregiver_subtitle">Receive alerts and respond immediately</string>
+    <string name="app_description">Turn two Android phones into a simple emergency call system</string>
+
+    <!-- Patient Screen -->
+    <string name="emergency_button">EMERGENCY</string>
+    <string name="hold_instruction">Press and hold if you need help</string>
+    <string name="emergency_sent">Emergency sent</string>
+    <string name="waiting_for_caregiver">Waiting for caregiver…</string>
+    <string name="help_acknowledged">Help acknowledged</string>
+    <string name="connection_status">Connection</string>
+    <string name="connected">CONNECTED</string>
+    <string name="connecting">CONNECTING…</string>
+    <string name="disconnected">DISCONNECTED</string>
+    <string name="re_pair_device">RE-PAIR DEVICE</string>
+
+    <!-- Caregiver Screen -->
+    <string name="monitoring">Monitoring</string>
+    <string name="status_normal">NORMAL - Monitoring</string>
+    <string name="status_emergency">🚨 EMERGENCY ACTIVE</string>
+    <string name="status_waiting_ack">WAITING FOR ACK…</string>
+    <string name="status_acknowledged">ACKNOWLEDGED</string>
+    <string name="test_alarm">TEST ALARM</string>
+
+    <!-- Pairing -->
+    <string name="pairing_mode">PAIRING MODE</string>
+    <string name="searching_caregiver">Searching for Caregiver…</string>
+    <string name="waiting_patient">Waiting for Patient to connect…</string>
+    <string name="enable_bluetooth_location">Make sure both phones have Bluetooth and Location enabled</string>
+    <string name="searching_devices">Searching for nearby devices…</string>
+    <string name="nearby_devices">Nearby Devices</string>
+    <string name="tap_to_pair">Tap to pair</string>
+    <string name="no_devices_found">No devices found. Make sure the other phone is in pairing mode.</string>
+    <string name="search_again">SEARCH AGAIN</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="current_role">Current Role</string>
+    <string name="restart_to_change_role">Restart app to change role</string>
+    <string name="patient_name">Patient Name</string>
+    <string name="patient_name_subtitle">Name shown on caregiver\'s phone</string>
+    <string name="device_name">Device Name</string>
+    <string name="device_name_subtitle">Name shown during pairing</string>
+    <string name="vibration">Vibration</string>
+    <string name="vibration_subtitle">Enable vibration for emergency alerts</string>
+    <string name="test_alarm_settings">Test Alarm</string>
+    <string name="test_alarm_subtitle">Test the emergency alarm sound and vibration</string>
+    <string name="test_alarm_button">TEST ALARM</string>
+    <string name="re_pair_device_settings">Re-pair Device</string>
+    <string name="re_pair_subtitle">Connect to a different phone</string>
+    <string name="re_pair_button">RE-PAIR DEVICE</string>
+    <string name="connection_diagnostics">Connection Diagnostics</string>
+    <string name="diagnostics_subtitle">View connection status and troubleshoot</string>
+    <string name="view_diagnostics">VIEW DIAGNOSTICS</string>
+    <string name="about_title">About</string>
+    <string name="about_subtitle">EmergencyCall v1.0.0</string>
+    <string name="about_description">Offline emergency call system using Nearby Connections</string>
+    <string name="about_features">No Internet required • Direct phone-to-phone</string>
+
+    <!-- Permissions -->
+    <string name="permission_location">Required for Nearby Connections to discover nearby devices via Bluetooth and Wi-Fi</string>
+    <string name="permission_bluetooth">Required for direct phone-to-phone communication via Bluetooth</string>
+    <string name="permission_wifi">Required for Nearby Connections to use Wi-Fi Direct</string>
+    <string name="permission_notifications">Required to show emergency alarm notifications</string>
+    <string name="permission_foreground">Required to keep emergency alarm running in background</string>
+    <string name="permission_vibrate">Required for emergency vibration alerts</string>
+    <string name="permission_wake_lock">Required to keep alarm active when screen is off</string>
+    <string name="permission_fullscreen">Required to show full-screen emergency alarm on lock screen</string>
+
+    <!-- Alarm -->
+    <string name="emergency_alarm_title">🚨 EMERGENCY</string>
+    <string name="emergency_alarm_text">%s needs help!</string>
+    <string name="emergency_active_notification">🚨 EMERGENCY ACTIVE</string>
+    <string name="emergency_active_text">%s needs help - Tap to respond</string>
+
+    <!-- Test Alarm Screen -->
+    <string name="test_mode_title">TEST MODE — THIS IS NOT A REAL EMERGENCY</string>
+</resources>

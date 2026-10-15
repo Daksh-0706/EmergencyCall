@@ -1,0 +1,295 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.emergencycall.debug"
+4    android:versionCode="1"
+5    android:versionName="1.0.0-debug" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="35" />
+10
+11    <!-- Network (required by NsdManager for local WiFi service discovery) -->
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:6:5-67
+12-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:6:22-64
+13    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+13-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:7:5-79
+13-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:7:22-76
+14
+15    <!-- Permissions for Nearby Connections -->
+16    <uses-permission android:name="android.permission.BLUETOOTH" />
+16-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:10:5-68
+16-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:10:22-65
+17    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+17-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:11:5-74
+17-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:11:22-71
+18    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+18-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:12:5-76
+18-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:12:22-73
+19    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+19-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:13:5-73
+19-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:13:22-70
+20    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+20-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:14:5-78
+20-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:14:22-75
+21    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+21-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:15:5-76
+21-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:15:22-73
+22    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+22-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:16:5-76
+22-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:16:22-73
+23    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+23-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:17:5-79
+23-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:17:22-76
+24    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+24-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:18:5-81
+24-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:18:22-78
+25    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
+25-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:19:5-20:32
+25-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:19:22-75
+26
+27    <!-- Permissions for notifications and foreground service -->
+28    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+28-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:23:5-77
+28-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:23:22-74
+29    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+29-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:24:5-77
+29-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:24:22-74
+30    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+30-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:25:5-92
+30-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:25:22-89
+31    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+31-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:26:5-94
+31-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:26:22-91
+32    <uses-permission android:name="android.permission.VIBRATE" />
+32-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:27:5-66
+32-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:27:22-63
+33    <uses-permission android:name="android.permission.WAKE_LOCK" />
+33-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:28:5-68
+33-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:28:22-65
+34    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+34-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:29:5-81
+34-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:29:22-78
+35    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+35-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:30:5-81
+35-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:30:22-78
+36
+37    <!-- Audio -->
+38    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+38-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:33:5-80
+38-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:33:22-77
+39
+40    <permission
+40-->[androidx.core:core:1.15.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/4b2ffaf746bfa133961a65889bd50f19/transformed/core-1.15.0/AndroidManifest.xml:22:5-24:47
+41        android:name="com.emergencycall.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+41-->[androidx.core:core:1.15.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/4b2ffaf746bfa133961a65889bd50f19/transformed/core-1.15.0/AndroidManifest.xml:23:9-81
+42        android:protectionLevel="signature" />
+42-->[androidx.core:core:1.15.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/4b2ffaf746bfa133961a65889bd50f19/transformed/core-1.15.0/AndroidManifest.xml:24:9-44
+43
+44    <uses-permission android:name="com.emergencycall.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+44-->[androidx.core:core:1.15.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/4b2ffaf746bfa133961a65889bd50f19/transformed/core-1.15.0/AndroidManifest.xml:26:5-97
+44-->[androidx.core:core:1.15.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/4b2ffaf746bfa133961a65889bd50f19/transformed/core-1.15.0/AndroidManifest.xml:26:22-94
+45
+46    <application
+46-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:35:5-90:19
+47        android:name="com.emergencycall.EmergencyCallApplication"
+47-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:36:9-49
+48        android:allowBackup="true"
+48-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:37:9-35
+49        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+49-->[androidx.core:core:1.15.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/4b2ffaf746bfa133961a65889bd50f19/transformed/core-1.15.0/AndroidManifest.xml:28:18-86
+50        android:dataExtractionRules="@xml/data_extraction_rules"
+50-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:38:9-65
+51        android:debuggable="true"
+52        android:extractNativeLibs="false"
+53        android:fullBackupContent="@xml/backup_rules"
+53-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:39:9-54
+54        android:icon="@mipmap/ic_launcher"
+54-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:40:9-43
+55        android:label="@string/app_name"
+55-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:41:9-41
+56        android:roundIcon="@mipmap/ic_launcher_round"
+56-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:42:9-54
+57        android:supportsRtl="true"
+57-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:43:9-35
+58        android:theme="@style/Theme.EmergencyCall" >
+58-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:44:9-51
+59        <activity
+59-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:47:9-57:20
+60            android:name="com.emergencycall.MainActivity"
+60-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:48:13-41
+61            android:exported="true"
+61-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:49:13-36
+62            android:launchMode="singleTop"
+62-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:50:13-43
+63            android:theme="@style/Theme.EmergencyCall"
+63-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:51:13-55
+64            android:windowSoftInputMode="adjustResize" >
+64-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:52:13-55
+65            <intent-filter>
+65-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:53:13-56:29
+66                <action android:name="android.intent.action.MAIN" />
+66-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:54:17-69
+66-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:54:25-66
+67
+68                <category android:name="android.intent.category.LAUNCHER" />
+68-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:55:17-77
+68-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:55:27-74
+69            </intent-filter>
+70        </activity>
+71
+72        <!-- Full-screen emergency alarm activity -->
+73        <activity
+73-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:60:9-71:20
+74            android:name="com.emergencycall.alarm.FullScreenAlarmActivity"
+74-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:61:13-58
+75            android:exported="true"
+75-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:62:13-36
+76            android:launchMode="singleInstance"
+76-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:63:13-48
+77            android:showOnLockScreen="true"
+77-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:64:13-44
+78            android:theme="@style/Theme.EmergencyCall.Fullscreen"
+78-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:66:13-66
+79            android:turnScreenOn="true" >
+79-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:65:13-40
+80            <intent-filter>
+80-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:67:13-70:29
+81                <action android:name="com.emergencycall.EMERGENCY_ALARM" />
+81-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:68:17-76
+81-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:68:25-73
+82
+83                <category android:name="android.intent.category.DEFAULT" />
+83-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:69:17-76
+83-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:69:27-73
+84            </intent-filter>
+85        </activity>
+86
+87        <!-- Alarm foreground service -->
+88        <service
+88-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:74:9-77:61
+89            android:name="com.emergencycall.alarm.AlarmForegroundService"
+89-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:75:13-57
+90            android:exported="false"
+90-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:76:13-37
+91            android:foregroundServiceType="mediaPlayback" />
+91-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:77:13-58
+92
+93        <!-- Background connection keep-alive service (BLE/Nearby bridge) -->
+94        <service
+94-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:80:9-83:63
+95            android:name="com.emergencycall.connection.ConnectionKeepAliveService"
+95-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:81:13-66
+96            android:exported="false"
+96-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:82:13-37
+97            android:foregroundServiceType="connectedDevice" />
+97-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:83:13-60
+98
+99        <!-- Nearby Connections -->
+100        <meta-data
+100-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:86:9-88:55
+101            android:name="com.google.android.gms.nearby.connection.service_id"
+101-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:87:13-79
+102            android:value="com.emergencycall.debug" />
+102-->/home/daksh/Daksh/pdhaistuff/differenthaikch/app/src/main/AndroidManifest.xml:88:13-52
+103
+104        <service
+104-->[com.google.android.gms:play-services-nearby:18.4.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/b525a573c5126e52b4ad9d479193f7f1/transformed/jetified-play-services-nearby-18.4.0/AndroidManifest.xml:10:9-13:105
+105            android:name="com.google.android.gms.nearby.exposurenotification.WakeUpService"
+105-->[com.google.android.gms:play-services-nearby:18.4.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/b525a573c5126e52b4ad9d479193f7f1/transformed/jetified-play-services-nearby-18.4.0/AndroidManifest.xml:11:13-92
+106            android:exported="true"
+106-->[com.google.android.gms:play-services-nearby:18.4.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/b525a573c5126e52b4ad9d479193f7f1/transformed/jetified-play-services-nearby-18.4.0/AndroidManifest.xml:12:13-36
+107            android:permission="com.google.android.gms.nearby.exposurenotification.EXPOSURE_CALLBACK" />
+107-->[com.google.android.gms:play-services-nearby:18.4.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/b525a573c5126e52b4ad9d479193f7f1/transformed/jetified-play-services-nearby-18.4.0/AndroidManifest.xml:13:13-102
+108
+109        <activity
+109-->[com.google.android.gms:play-services-base:18.0.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/0ecb7d24cdb8225b576ae1b6bb940041/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
+110            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+110-->[com.google.android.gms:play-services-base:18.0.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/0ecb7d24cdb8225b576ae1b6bb940041/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:19-85
+111            android:exported="false"
+111-->[com.google.android.gms:play-services-base:18.0.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/0ecb7d24cdb8225b576ae1b6bb940041/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:22:19-43
+112            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+112-->[com.google.android.gms:play-services-base:18.0.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/0ecb7d24cdb8225b576ae1b6bb940041/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:21:19-78
+113
+114        <meta-data
+114-->[com.google.android.gms:play-services-basement:18.0.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/beaf8398305422f9b0dcf29eb98462d0/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:21:9-23:69
+115            android:name="com.google.android.gms.version"
+115-->[com.google.android.gms:play-services-basement:18.0.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/beaf8398305422f9b0dcf29eb98462d0/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:22:13-58
+116            android:value="@integer/google_play_services_version" />
+116-->[com.google.android.gms:play-services-basement:18.0.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/beaf8398305422f9b0dcf29eb98462d0/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:23:13-66
+117
+118        <activity
+118-->[androidx.compose.ui:ui-tooling-android:1.7.4] /tmp/claude-1000/.gradle/caches/8.9/transforms/10e27ddce2dc7bc8b236d6672459d076/transformed/jetified-ui-tooling-release/AndroidManifest.xml:23:9-25:39
+119            android:name="androidx.compose.ui.tooling.PreviewActivity"
+119-->[androidx.compose.ui:ui-tooling-android:1.7.4] /tmp/claude-1000/.gradle/caches/8.9/transforms/10e27ddce2dc7bc8b236d6672459d076/transformed/jetified-ui-tooling-release/AndroidManifest.xml:24:13-71
+120            android:exported="true" />
+120-->[androidx.compose.ui:ui-tooling-android:1.7.4] /tmp/claude-1000/.gradle/caches/8.9/transforms/10e27ddce2dc7bc8b236d6672459d076/transformed/jetified-ui-tooling-release/AndroidManifest.xml:25:13-36
+121
+122        <provider
+122-->[androidx.emoji2:emoji2:1.3.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/d96658d4a0c5fed46aa9d8abc295097a/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+123            android:name="androidx.startup.InitializationProvider"
+123-->[androidx.emoji2:emoji2:1.3.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/d96658d4a0c5fed46aa9d8abc295097a/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:25:13-67
+124            android:authorities="com.emergencycall.debug.androidx-startup"
+124-->[androidx.emoji2:emoji2:1.3.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/d96658d4a0c5fed46aa9d8abc295097a/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:26:13-68
+125            android:exported="false" >
+125-->[androidx.emoji2:emoji2:1.3.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/d96658d4a0c5fed46aa9d8abc295097a/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:27:13-37
+126            <meta-data
+126-->[androidx.emoji2:emoji2:1.3.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/d96658d4a0c5fed46aa9d8abc295097a/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+127                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+127-->[androidx.emoji2:emoji2:1.3.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/d96658d4a0c5fed46aa9d8abc295097a/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:30:17-75
+128                android:value="androidx.startup" />
+128-->[androidx.emoji2:emoji2:1.3.0] /tmp/claude-1000/.gradle/caches/8.9/transforms/d96658d4a0c5fed46aa9d8abc295097a/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:31:17-49
+129            <meta-data
+129-->[androidx.lifecycle:lifecycle-process:2.8.4] /tmp/claude-1000/.gradle/caches/8.9/transforms/dfa789c4d2ba7e31d9bfbeeabf730bc3/transformed/jetified-lifecycle-process-2.8.4/AndroidManifest.xml:29:13-31:52
+130                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+130-->[androidx.lifecycle:lifecycle-process:2.8.4] /tmp/claude-1000/.gradle/caches/8.9/transforms/dfa789c4d2ba7e31d9bfbeeabf730bc3/transformed/jetified-lifecycle-process-2.8.4/AndroidManifest.xml:30:17-78
+131                android:value="androidx.startup" />
+131-->[androidx.lifecycle:lifecycle-process:2.8.4] /tmp/claude-1000/.gradle/caches/8.9/transforms/dfa789c4d2ba7e31d9bfbeeabf730bc3/transformed/jetified-lifecycle-process-2.8.4/AndroidManifest.xml:31:17-49
+132            <meta-data
+132-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+133                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+133-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+134                android:value="androidx.startup" />
+134-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+135        </provider>
+136
+137        <receiver
+137-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+138            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+138-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+139            android:directBootAware="false"
+139-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+140            android:enabled="true"
+140-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+141            android:exported="true"
+141-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+142            android:permission="android.permission.DUMP" >
+142-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+143            <intent-filter>
+143-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+144                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+144-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+144-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+145            </intent-filter>
+146            <intent-filter>
+146-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+147                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+147-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+147-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+148            </intent-filter>
+149            <intent-filter>
+149-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+150                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+150-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+150-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+151            </intent-filter>
+152            <intent-filter>
+152-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+153                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+153-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+153-->[androidx.profileinstaller:profileinstaller:1.3.1] /tmp/claude-1000/.gradle/caches/8.9/transforms/6628e0c596db56e26474dc0cbbbec92a/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+154            </intent-filter>
+155        </receiver>
+156    </application>
+157
+158</manifest>

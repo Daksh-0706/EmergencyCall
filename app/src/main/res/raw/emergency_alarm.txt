@@ -1,0 +1,13 @@
+PLACEHOLDER: Replace this file with an actual emergency alarm sound file named "emergency_alarm.mp3" or "emergency_alarm.ogg"
+
+Recommended: A loud, attention-grabbing alarm sound (1-5 seconds) that loops well.
+Format: MP3 or OGG
+Sample rate: 44.1 kHz
+Bitrate: 128 kbps or higher
+
+You can generate one using:
+- Online tone generators (e.g., 800Hz/1000Hz alternating tones)
+- Free sound libraries (freesound.org)
+- Android's built-in alarm sounds (copy from /system/media/audio/alarms/)
+
+The app will fall back to system alarm sound or generated tone if this file is missing.

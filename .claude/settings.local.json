@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(java -version)",
+      "Read(//c/Program Files/Eclipse Adoptium/jdk-25.0.2.10-hotspot/**)",
+      "Bash(cmd /c \"D:\\\\\\\\pdhai stuffffffff\\\\\\\\differenthaikch\\\\\\\\gradlew.bat --version\")",
+      "Bash(cmd /c \"gradlew.bat --version\")",
+      "Read(//c/Program Files/Microsoft/**)",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Users/HP/AppData/Local/**)",
+      "Read(//c/Users/HP/Library/**)",
+      "Read(//d/android-sdk/**)",
+      "Read(//d/android-sdk/cmdline-tools/**)",
+      "Bash(cmd /c gradlew.bat compileDebugKotlin --no-daemon)",
+      "Bash(D:\\\\pdhai stuffffffff\\\\differenthaikch\\\\gradlew.bat compileDebugKotlin *)"
+    ]
+  }
+}

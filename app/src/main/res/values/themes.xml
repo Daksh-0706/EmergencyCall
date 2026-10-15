@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.EmergencyCall" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/emergency_red</item>
+        <item name="colorPrimaryVariant">@color/emergency_red_dark</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/emergency_red</item>
+        <item name="colorSecondaryVariant">@color/emergency_red_dark</item>
+        <item name="colorOnSecondary">@android:color/white</item>
+
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@color/emergency_red_dark</item>
+
+        <!-- Background -->
+        <item name="android:windowBackground">@color/background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+
+        <!-- Error -->
+        <item name="colorError">@color/emergency_red</item>
+        <item name="colorOnError">@android:color/white</item>
+
+        <!-- Shape -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.EmergencyCall.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.EmergencyCall.Medium</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.EmergencyCall.Large</item>
+    </style>
+
+    <style name="Theme.EmergencyCall.Fullscreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/emergency_red</item>
+        <item name="android:statusBarColor">@color/emergency_red</item>
+        <item name="android:navigationBarColor">@color/emergency_red</item>
+    </style>
+
+    <style name="ShapeAppearance.EmergencyCall.Small" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="ShapeAppearance.EmergencyCall.Medium" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="ShapeAppearance.EmergencyCall.Large" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+    </style>
+</resources>

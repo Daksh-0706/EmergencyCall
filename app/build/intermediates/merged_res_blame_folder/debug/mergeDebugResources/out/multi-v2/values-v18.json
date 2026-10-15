@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.emergencycall.app-mergeDebugResources-2:/values-v18/values-v18.xml",
+            "map": [
+                {
+                    "source": "/tmp/claude-1000/.gradle/caches/8.9/transforms/394e5a256b172dbe11009aa7ab7f9187/transformed/appcompat-1.6.1/res/values-v18/values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        }
+    ]
+}
