@@ -1,13 +1,18 @@
 package com.emergencycall.ui.screens
 
-import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -24,53 +29,46 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.emergencycall.data.ConnectionState
+import com.emergencycall.data.EmergencyState
 import com.emergencycall.data.EmergencyStateManager
 import com.emergencycall.data.EmergencyStatus
 import com.emergencycall.ui.components.ContactCard
+import com.emergencycall.ui.components.FadeSlideIn
+import com.emergencycall.ui.components.HeartbeatDot
 import com.emergencycall.ui.components.InitialsAvatar
-import com.emergencycall.ui.theme.DesignBorder
+import com.emergencycall.ui.components.PremiumSosButton
+import com.emergencycall.ui.components.pulseGlow
+import com.emergencycall.ui.theme.DesignCardBorder
 import com.emergencycall.ui.theme.DesignRed
+import com.emergencycall.ui.theme.DesignRedSoft
+import com.emergencycall.ui.theme.DesignSurface
 import com.emergencycall.ui.theme.DesignTextPrimary
 import com.emergencycall.ui.theme.DesignTextSecondary
 import kotlin.math.min
 
-/**
- * Patient home, restyled to match the Whispr Figma design (deep dark surfaces +
- * concentric SOS button) while keeping all the real EmergencyCall functionality.
- *
- * The bottom nav has two in-place tabs — HOME and ICE — plus SETTINGS which opens
- * the full settings screen. The emergency trigger remains a press-and-hold on the
- * SOS button.
- */
 @Composable
 fun PatientHomeScreen(
     onNavigateToConnection: () -> Unit,
@@ -84,6 +82,7 @@ fun PatientHomeScreen(
     val state by stateManager.state.collectAsStateWithLifecycle()
 
     Scaffold(
+        containerColor = Color.Transparent,
         bottomBar = {
             BottomNavigationBar(
                 selectedTab = selectedTab,
@@ -115,101 +114,117 @@ fun PatientHomeScreen(
 
 @Composable
 private fun HomeTab(
-    state: com.emergencycall.data.EmergencyState,
+    state: EmergencyState,
     onEmergency: () -> Unit,
     onNavigateToConnection: () -> Unit,
     onSettingsClick: () -> Unit,
     onViewAllIce: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    BoxWithConstraints(
-        modifier = modifier.fillMaxSize()
-    ) {
-        val maxButtonSizeDp = min(maxWidth.value, maxHeight.value) * 0.5f
-        val buttonSize = (maxButtonSizeDp.coerceIn(220f, 280f)).dp
+    BoxWithConstraints(modifier = modifier.fillMaxSize()) {
+        val maxButtonSizeDp = min(maxWidth.value, maxHeight.value) * 0.52f
+        val buttonSize = (maxButtonSizeDp.coerceIn(230f, 290f)).dp
 
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = androidx.compose.foundation.layout.PaddingValues(
-                start = 20.dp, end = 20.dp, top = 16.dp, bottom = 16.dp
-            ),
+            contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 16.dp, bottom = 24.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Header
             item {
-                HomeHeader(
-                    connected = state.connectionState is ConnectionState.Connected,
-                    onSettingsClick = onSettingsClick
-                )
+                FadeSlideIn(delayMs = 0) {
+                    HomeHeader(
+                        connected = state.connectionState is ConnectionState.Connected,
+                        onSettingsClick = onSettingsClick
+                    )
+                }
             }
 
-            // Emergency button / sent / acknowledged states
             item {
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    when (state.emergencyStatus) {
-                        EmergencyStatus.NONE -> EmergencyButton(
-                            buttonSize = buttonSize,
-                            onLongPress = { onEmergency() },
-                            onPressStart = { /* track press start if needed */ },
-                            onPressEnd = { /* released */ }
-                        )
-                        EmergencyStatus.ACTIVE, EmergencyStatus.SENT_WAITING_ACK -> EmergencySentCard(
-                            eventId = state.activeEmergencyEvent?.eventId ?: "",
-                            status = state.emergencyStatus
-                        )
-                        EmergencyStatus.ACKNOWLEDGED -> EmergencyAcknowledgedCard(
-                            eventId = state.activeEmergencyEvent?.eventId ?: "",
-                            responderName = state.responderName
-                        )
+                FadeSlideIn(delayMs = 70) {
+                    ArmedStatusPill(state)
+                }
+            }
+
+            item {
+                FadeSlideIn(delayMs = 140) {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        AnimatedContent(
+                            targetState = state.emergencyStatus,
+                            transitionSpec = {
+                                (fadeIn(androidx.compose.animation.core.tween(300)) +
+                                        slideInVertically { h -> h / 4 }) togetherWith
+                                        fadeOut(androidx.compose.animation.core.tween(220))
+                            },
+                            label = "emergencyStatus"
+                        ) { status ->
+                            when (status) {
+                                EmergencyStatus.NONE -> PremiumSosButton(
+                                    buttonSize = buttonSize,
+                                    onLongPress = { onEmergency() }
+                                )
+                                EmergencyStatus.ACTIVE, EmergencyStatus.SENT_WAITING_ACK ->
+                                    EmergencySentCard(
+                                        eventId = state.activeEmergencyEvent?.eventId ?: "",
+                                        status = status
+                                    )
+                                EmergencyStatus.ACKNOWLEDGED ->
+                                    EmergencyAcknowledgedCard(
+                                        eventId = state.activeEmergencyEvent?.eventId ?: "",
+                                        responderName = state.responderName
+                                    )
+                            }
+                        }
                     }
                 }
             }
 
             if (state.emergencyStatus == EmergencyStatus.NONE) {
-                // Instruction text
                 item {
-                    Text(
-                        text = "Press and hold to alert your caregivers",
-                        fontSize = 15.sp,
-                        color = DesignTextSecondary,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-
-                // Armed status pill
-                item { ArmedStatusPill(state) }
-
-                // ICE contacts preview
-                if (state.pairedDevices.isNotEmpty()) {
-                    item {
-                        IceContactsPreview(
-                            contacts = state.pairedDevices.map { it.endpointName },
-                            connected = state.connectedCount > 0,
-                            onViewAll = onViewAllIce
+                    FadeSlideIn(delayMs = 210) {
+                        Text(
+                            text = "Press and hold to alert your caregivers",
+                            fontSize = 14.sp,
+                            color = DesignTextSecondary,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
                         )
                     }
                 }
 
-                // Pair / reconnect button when not connected
+                if (state.pairedDevices.isNotEmpty()) {
+                    item {
+                        FadeSlideIn(delayMs = 280) {
+                            IceContactsPreview(
+                                contacts = state.pairedDevices.map { it.endpointName },
+                                connected = state.connectedCount > 0,
+                                onViewAll = onViewAllIce
+                            )
+                        }
+                    }
+                }
+
                 if (state.connectionState !is ConnectionState.Connected) {
                     item {
-                        val label = when (state.connectionState) {
-                            is ConnectionState.Disconnected -> "PAIR CONTACT"
-                            else -> "CONNECT CONTACT"
-                        }
-                        Button(
-                            onClick = onNavigateToConnection,
-                            modifier = Modifier.fillMaxWidth(0.85f),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = DesignRed,
-                                contentColor = Color.White
-                            )
-                        ) {
-                            Text(label, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        FadeSlideIn(delayMs = 350) {
+                            Button(
+                                onClick = onNavigateToConnection,
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(18.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = DesignRed,
+                                    contentColor = Color.White
+                                )
+                            ) {
+                                Text(
+                                    "Pair a contact to arm SOS",
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(vertical = 4.dp)
+                                )
+                            }
                         }
                     }
                 }
@@ -228,34 +243,42 @@ private fun HomeHeader(connected: Boolean, onSettingsClick: () -> Unit) {
         Column {
             Text(
                 text = "EmergencyCall",
-                fontSize = 20.sp,
+                fontSize = 17.sp,
                 fontWeight = FontWeight.Bold,
-                color = DesignTextPrimary
+                color = DesignTextPrimary,
+                letterSpacing = 0.2.sp
             )
             Text(
                 text = "PATIENT MODE",
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Medium,
-                color = DesignRed
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
+                color = DesignRed,
+                letterSpacing = 1.6.sp
             )
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
-            // Live / offline chip
-            Box(
-                modifier = Modifier
-                    .padding(end = 8.dp)
-                    .background(
+            Surface(
+                color = DesignSurface,
+                shape = RoundedCornerShape(999.dp),
+                border = androidx.compose.foundation.BorderStroke(1.dp, DesignCardBorder)
+            ) {
+                Row(
+                    Modifier.padding(horizontal = 12.dp, vertical = 7.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    HeartbeatDot(
                         color = if (connected) DesignRed else DesignTextSecondary,
-                        shape = CircleShape
+                        size = 7.dp
                     )
-                    .size(8.dp)
-            )
-            Text(
-                text = if (connected) "Armed" else "Offline",
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Bold,
-                color = if (connected) DesignRed else DesignTextSecondary
-            )
+                    Spacer(Modifier.size(7.dp))
+                    Text(
+                        text = if (connected) "Armed" else "Offline",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = if (connected) DesignTextPrimary else DesignTextSecondary
+                    )
+                }
+            }
             IconButton(onClick = onSettingsClick) {
                 Icon(
                     imageVector = Icons.Filled.Settings,
@@ -267,70 +290,66 @@ private fun HomeHeader(connected: Boolean, onSettingsClick: () -> Unit) {
     }
 }
 
-/** Small status pill mirroring the design's "SOS Active State" card. */
 @Composable
-private fun ArmedStatusPill(state: com.emergencycall.data.EmergencyState) {
+private fun ArmedStatusPill(state: EmergencyState) {
     val armed = state.connectionState is ConnectionState.Connected
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .widthIn(max = 480.dp)
-            .border(1.dp, DesignBorder, RoundedCornerShape(16.dp))
-            .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(16.dp))
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
+    Surface(
+        color = DesignSurface,
+        shape = RoundedCornerShape(20.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, DesignCardBorder),
+        modifier = Modifier.fillMaxWidth()
     ) {
-        Box(
-            modifier = Modifier
-                .padding(end = 12.dp)
-                .size(12.dp)
-                .background(
-                    color = if (armed) DesignRed else DesignTextSecondary,
-                    shape = CircleShape
+        Row(
+            Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            HeartbeatDot(
+                color = if (armed) DesignRed else DesignTextSecondary,
+                size = 10.dp
+            )
+            Spacer(Modifier.size(12.dp))
+            Column(Modifier.weight(1f)) {
+                Text(
+                    text = if (armed) "SOS Active · Armed" else "SOS Active · Disarmed",
+                    color = DesignTextPrimary,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
                 )
-        )
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = if (armed) "SOS Active: Armed" else "SOS Active: Disarmed",
-                color = DesignTextPrimary,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = if (armed) "${state.connectedCount} caregiver(s) will be pinged instantly"
-                       else "Pair a contact to arm emergency alerts",
-                color = DesignTextSecondary,
-                fontSize = 12.sp
-            )
+                Text(
+                    text = if (armed) "${state.connectedCount} caregiver(s) will be pinged instantly"
+                           else "Pair a contact to arm emergency alerts",
+                    color = DesignTextSecondary,
+                    fontSize = 12.sp
+                )
+            }
         }
     }
 }
 
-/** Horizontal row of ICE contact initials, matching the design's home preview. */
 @Composable
 private fun IceContactsPreview(
     contacts: List<String>,
     connected: Boolean,
     onViewAll: () -> Unit
 ) {
-    Column(modifier = Modifier.fillMaxWidth().widthIn(max = 480.dp)) {
+    Column(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("ICE Contacts", color = DesignTextPrimary, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+            Text(
+                "ICE Contacts",
+                color = DesignTextPrimary,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold
+            )
             Text(
                 text = "View All",
                 color = DesignRed,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.background(
-                    color = Color.Transparent,
-                    shape = RoundedCornerShape(8.dp)
-                ).pointerInput(Unit) {
-                    detectTapGestures { onViewAll() }
-                }.padding(4.dp)
+                modifier = Modifier.clickable(onClick = onViewAll).padding(4.dp)
             )
         }
         Row(
@@ -343,17 +362,19 @@ private fun IceContactsPreview(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     InitialsAvatar(name = name, size = 52.dp)
-                    Spacer(Modifier.padding(4.dp))
+                    Spacer(Modifier.size(6.dp))
                     Text(
                         text = name.take(8).ifBlank { "?" },
                         color = DesignTextPrimary,
                         fontSize = 11.sp,
+                        fontWeight = FontWeight.SemiBold,
                         maxLines = 1
                     )
                     Text(
                         text = if (connected) "Online" else "Offline",
-                        color = DesignTextSecondary,
-                        fontSize = 10.sp
+                        color = if (connected) DesignRed else DesignTextSecondary,
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.SemiBold
                     )
                 }
             }
@@ -361,7 +382,6 @@ private fun IceContactsPreview(
     }
 }
 
-/** Full ICE contacts list tab. */
 @Composable
 private fun IceTab(
     contacts: List<String>,
@@ -371,19 +391,24 @@ private fun IceTab(
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
-        contentPadding = androidx.compose.foundation.layout.PaddingValues(
-            start = 20.dp, end = 20.dp, top = 16.dp, bottom = 16.dp
-        ),
+        contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 16.dp, bottom = 24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         item {
-            Column(modifier = Modifier.padding(bottom = 8.dp)) {
-                Text("ICE Contacts", color = DesignTextPrimary, fontSize = 24.sp, fontWeight = FontWeight.Bold)
-                Text(
-                    text = "These trusted contacts will be notified in an emergency.",
-                    color = DesignTextSecondary,
-                    fontSize = 13.sp
-                )
+            FadeSlideIn(delayMs = 0) {
+                Column(Modifier.padding(bottom = 8.dp)) {
+                    Text(
+                        "ICE Contacts",
+                        color = DesignTextPrimary,
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "These trusted contacts will be notified in an emergency.",
+                        color = DesignTextSecondary,
+                        fontSize = 13.sp
+                    )
+                }
             }
         }
 
@@ -402,14 +427,10 @@ private fun IceTab(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
+                    Text("No ICE contacts yet", color = DesignTextSecondary, fontSize = 15.sp)
+                    Spacer(Modifier.size(8.dp))
                     Text(
-                        text = "No ICE contacts yet",
-                        color = DesignTextSecondary,
-                        fontSize = 15.sp
-                    )
-                    Spacer(Modifier.padding(8.dp))
-                    Text(
-                        text = "Pair another phone to add a caregiver",
+                        "Pair another phone to add a caregiver",
                         color = DesignTextSecondary,
                         fontSize = 13.sp
                     )
@@ -421,90 +442,14 @@ private fun IceTab(
             Button(
                 onClick = onAddContact,
                 modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(18.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = DesignRed,
                     contentColor = Color.White
                 )
             ) {
-                Text("ADD ICE CONTACT", fontSize = 15.sp, fontWeight = FontWeight.Bold)
-            }
-        }
-
-        item { Spacer(Modifier.padding(16.dp)) }
-    }
-}
-
-/**
- * The design's concentric SOS button: faint + soft red rings around a solid red
- * center. Press-and-hold (>= the long-press timeout) triggers the emergency.
- */
-@Composable
-fun EmergencyButton(
-    buttonSize: Dp,
-    onLongPress: () -> Unit,
-    onPressStart: () -> Unit,
-    onPressEnd: () -> Unit
-) {
-    var isPressed by remember { mutableStateOf(false) }
-    val scale by animateFloatAsState(
-        targetValue = if (isPressed) 0.9f else 1f,
-        label = "sosScale"
-    )
-    Box(
-        modifier = Modifier.size(buttonSize).aspectRatio(1f),
-        contentAlignment = Alignment.Center
-    ) {
-        // Outermost faint ring
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .graphicsLayer { scaleX = scale; scaleY = scale }
-                .background(DesignRed.copy(alpha = 0.04f), CircleShape)
-        )
-        // Soft intermediate ring
-        Box(
-            modifier = Modifier
-                .fillMaxSize(0.82f)
-                .graphicsLayer { scaleX = scale; scaleY = scale }
-                .background(DesignRed.copy(alpha = 0.12f), CircleShape)
-        )
-        // Solid red center — the actual press target
-        Box(
-            modifier = Modifier
-                .fillMaxSize(0.62f)
-                .graphicsLayer { scaleX = scale; scaleY = scale }
-                .background(if (isPressed) DesignRed.copy(alpha = 0.85f) else DesignRed, CircleShape)
-                .shadow(elevation = 20.dp, spotColor = DesignRed, shape = CircleShape)
-                .pointerInput(Unit) {
-                    detectTapGestures(
-                        onPress = {
-                            isPressed = true
-                            onPressStart()
-                            val released = tryAwaitRelease()
-                            isPressed = false
-                            if (released) onPressEnd()
-                        },
-                        onLongPress = { onLongPress() }
-                    )
-                }
-        ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "SOS",
-                    fontSize = 36.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White
-                )
-                Text(
-                    text = "Hold to trigger",
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White.copy(alpha = 0.9f)
-                )
+                Text("ADD ICE CONTACT", fontSize = 15.sp, fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(vertical = 4.dp))
             }
         }
     }
@@ -517,40 +462,63 @@ fun EmergencySentCard(eventId: String, status: EmergencyStatus) {
         EmergencyStatus.SENT_WAITING_ACK -> "Waiting for caregiver..."
         else -> "Emergency sent"
     }
-    val color = if (status == EmergencyStatus.SENT_WAITING_ACK) MaterialTheme.colorScheme.tertiary
+    val color = if (status == EmergencyStatus.SENT_WAITING_ACK) DesignRed
                 else MaterialTheme.colorScheme.error
 
-    Card(
-        modifier = Modifier.fillMaxWidth().widthIn(max = 480.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = color.copy(alpha = 0.15f),
-            contentColor = color
-        ),
-        shape = RoundedCornerShape(16.dp)
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .pulseGlow(enabled = true, color = color),
+        shape = RoundedCornerShape(24.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, color.copy(alpha = 0.4f)),
+        color = Color.Transparent
     ) {
         Column(
-            modifier = Modifier.padding(24.dp),
+            Modifier
+                .background(
+                    Brush.verticalGradient(
+                        listOf(color.copy(alpha = 0.18f), DesignSurface)
+                    ),
+                    RoundedCornerShape(24.dp)
+                )
+                .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                imageVector = Icons.Filled.Send,
-                contentDescription = "",
-                modifier = Modifier.size(48.dp),
-                tint = color
-            )
-            Spacer(Modifier.padding(16.dp))
+            Box(
+                Modifier
+                    .size(56.dp)
+                    .background(color.copy(alpha = 0.16f), CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Send,
+                    contentDescription = null,
+                    modifier = Modifier.size(26.dp),
+                    tint = color
+                )
+            }
+            Spacer(Modifier.size(14.dp))
             Text(
                 text = statusText,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.ExtraBold,
                 color = color,
                 textAlign = TextAlign.Center
             )
-            Spacer(Modifier.padding(8.dp))
+            Spacer(Modifier.size(8.dp))
             Text(
-                text = "Event: ${eventId.take(8)}...",
-                fontSize = 14.sp,
-                color = color.copy(alpha = 0.7f),
+                text = if (status == EmergencyStatus.SENT_WAITING_ACK)
+                    "Alert delivered. Keep your phone nearby."
+                else "Broadcasting to your caregivers...",
+                fontSize = 13.sp,
+                color = DesignTextSecondary,
+                textAlign = TextAlign.Center
+            )
+            Spacer(Modifier.size(8.dp))
+            Text(
+                text = "Event: ${eventId.take(8)}",
+                fontSize = 12.sp,
+                color = DesignTextSecondary.copy(alpha = 0.7f),
                 textAlign = TextAlign.Center
             )
         }
@@ -560,44 +528,57 @@ fun EmergencySentCard(eventId: String, status: EmergencyStatus) {
 @Composable
 fun EmergencyAcknowledgedCard(eventId: String, responderName: String = "") {
     val color = MaterialTheme.colorScheme.primary
-    Card(
-        modifier = Modifier.fillMaxWidth().widthIn(max = 480.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = color.copy(alpha = 0.15f),
-            contentColor = color
-        ),
-        shape = RoundedCornerShape(16.dp)
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(24.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, color.copy(alpha = 0.4f)),
+        color = Color.Transparent
     ) {
         Column(
-            modifier = Modifier.padding(24.dp),
+            Modifier
+                .background(
+                    Brush.verticalGradient(
+                        listOf(color.copy(alpha = 0.18f), DesignSurface)
+                    ),
+                    RoundedCornerShape(24.dp)
+                )
+                .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                imageVector = Icons.Filled.CheckCircle,
-                contentDescription = "",
-                modifier = Modifier.size(48.dp),
-                tint = color
-            )
-            Spacer(Modifier.padding(16.dp))
+            Box(
+                Modifier
+                    .size(56.dp)
+                    .background(color.copy(alpha = 0.16f), CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.CheckCircle,
+                    contentDescription = null,
+                    modifier = Modifier.size(30.dp),
+                    tint = color
+                )
+            }
+            Spacer(Modifier.size(14.dp))
             Text(
                 text = "Help Acknowledged",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.ExtraBold,
                 color = color,
                 textAlign = TextAlign.Center
             )
-            Spacer(Modifier.padding(8.dp))
+            Spacer(Modifier.size(8.dp))
             Text(
                 text = if (responderName.isNotBlank()) "$responderName is on the way" else "Caregiver is on the way",
-                fontSize = 18.sp,
-                color = color.copy(alpha = 0.8f),
+                fontSize = 16.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = DesignTextPrimary,
                 textAlign = TextAlign.Center
             )
-            Spacer(Modifier.padding(8.dp))
+            Spacer(Modifier.size(8.dp))
             Text(
-                text = "Event: ${eventId.take(8)}...",
-                fontSize = 14.sp,
-                color = color.copy(alpha = 0.6f),
+                text = "Event: ${eventId.take(8)}",
+                fontSize = 12.sp,
+                color = DesignTextSecondary.copy(alpha = 0.7f),
                 textAlign = TextAlign.Center
             )
         }

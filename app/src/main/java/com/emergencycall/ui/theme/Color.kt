@@ -2,15 +2,37 @@ package com.emergencycall.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Emergency red palette
-val EmergencyRed = Color(0xFFB71C1C)
-val EmergencyRedLight = Color(0xFFEF5350)
-val EmergencyRedDark = Color(0xFF7F0000)
+// ============================================================================
+// Design system v2 — deep charcoal surfaces, layered cards, refined red.
+// Old token names kept so every existing reference keeps compiling.
+// ============================================================================
 
-val EmergencyRedContainer = Color(0xFFFFEBEE)
-val EmergencyRedOnContainer = Color(0xFF7F0000)
+// Backgrounds
+val DesignBackground   = Color(0xFF0B0B0F)   // app background
+val DesignSurface      = Color(0xFF141419)   // cards / pills
+val DesignSurfaceDeep  = Color(0xFF0F0F13)   // bottom nav, deep panels
+val DesignBorder       = Color(0xFF222226)   // hairline borders
+val DesignCardBorder   = Color.White.copy(alpha = 0.07f)
 
-// Standard Material 3 palette extensions — DARK scheme (dark bg, light text)
+// Text
+val DesignTextPrimary   = Color(0xFFFFFFFF)
+val DesignTextSecondary = Color(0xFF8E8E96)
+
+// Emergency red
+val DesignRed       = Color(0xFFFF3B30)
+val DesignRedLight  = Color(0xFFFF6B5E)      // gradient top
+val DesignRedDeep   = Color(0xFFD9261B)      // gradient bottom
+val DesignRedSoft   = Color(0x1FFF3B30)      // tinted red (pills, glow)
+val DesignRedFaint  = Color(0x08FF3B30)      // faint red (outer SOS ring)
+
+// Caregiver accent (blue, used sparingly for contrast on caregiver UI)
+val DesignCareBlue     = Color(0xFF3E63DD)
+val DesignCareBlueSoft = Color(0x143E63DD)
+
+// ============================================================================
+// Legacy Material 3 palette — kept because Theme.kt's fallback light scheme
+// stillreferences these tokens.
+// ============================================================================
 val MD3Primary = Color(0xFFD0BCFF)
 val MD3OnPrimary = Color(0xFF381E72)
 val MD3PrimaryContainer = Color(0xFF4F378B)
@@ -47,17 +69,3 @@ val MD3Scrim = Color(0xFF000000)
 val MD3InverseSurface = Color(0xFFE6E1E5)
 val MD3InverseOnSurface = Color(0xFF313033)
 val MD3InversePrimary = Color(0xFF6750A4)
-
-// ============================================================================
-// Whispr design palette — extracted from the Figma design (CodeTea export).
-// These tokens drive the app's "sexy" dark + emergency-red look.
-// ============================================================================
-val DesignBackground = Color(0xFF1A1A1E)        // app background
-val DesignSurface = Color(0xFF16161A)           // cards
-val DesignSurfaceDeep = Color(0xFF0C0C0E)       // deep panels / bottom nav
-val DesignBorder = Color(0xFF222226)            // card borders
-val DesignTextPrimary = Color(0xFFFFFFFF)
-val DesignTextSecondary = Color(0xFF8E8E93)
-val DesignRed = Color(0xFFFF3B30)               // primary emergency red
-val DesignRedSoft = Color(0x1FFF3B30)           // tinted red (pills, glow)
-val DesignRedFaint = Color(0x08FF3B30)          // faint red (outer SOS ring)

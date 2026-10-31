@@ -4,7 +4,7 @@
             "outputFile": "com.emergencycall.app-mergeDebugResources-2:/values-v30/values-v30.xml",
             "map": [
                 {
-                    "source": "/tmp/claude-1000/.gradle/caches/8.9/transforms/9475adbb70605c9ae59b75f0e9ecc252/transformed/jetified-material3-release/res/values-v30/values-v30.xml",
+                    "source": "C:\\Users\\daksh\\.gradle\\caches\\8.9\\transforms\\9475adbb70605c9ae59b75f0e9ecc252\\transformed\\jetified-material3-release\\res\\values-v30\\values-v30.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

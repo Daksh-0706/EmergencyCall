@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background">#121212</color>
+    <color name="background">#0B0B0F</color>
     <color name="emergency_red">#B71C1C</color>
     <color name="emergency_red_container">#FFEBEE</color>
     <color name="emergency_red_dark">#7F0000</color>

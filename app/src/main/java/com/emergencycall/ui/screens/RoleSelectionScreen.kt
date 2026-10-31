@@ -7,31 +7,38 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MedicalServices
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.emergencycall.data.UserRole
+import com.emergencycall.ui.components.FadeSlideIn
+import com.emergencycall.ui.theme.DesignCardBorder
+import com.emergencycall.ui.theme.DesignCareBlue
+import com.emergencycall.ui.theme.DesignCareBlueSoft
+import com.emergencycall.ui.theme.DesignRed
+import com.emergencycall.ui.theme.DesignRedSoft
+import com.emergencycall.ui.theme.DesignSurface
+import com.emergencycall.ui.theme.DesignTextPrimary
+import com.emergencycall.ui.theme.DesignTextSecondary
 
 @Composable
 fun RoleSelectionScreen(onRoleSelected: (UserRole) -> Unit) {
@@ -39,137 +46,178 @@ fun RoleSelectionScreen(onRoleSelected: (UserRole) -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .statusBarsPadding()
-            .navigationBarsPadding()
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Top,
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // App title
-        Text(
-            text = "EmergencyCall",
-            fontSize = 42.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(24.dp, 32.dp, 24.dp, 8.dp)
-        )
+        Spacer(Modifier.size(44.dp))
 
-        Text(
-            text = "Turn two Android phones into a simple emergency call system",
-            fontSize = 18.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(24.dp, 0.dp, 24.dp, 32.dp)
-        )
+        FadeSlideIn(delayMs = 0) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = "EmergencyCall",
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = DesignTextPrimary,
+                    letterSpacing = 0.3.sp
+                )
+                Text(
+                    text = "OFFLINE SOS NETWORK",
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = DesignRed,
+                    letterSpacing = 2.5.sp
+                )
+            }
+        }
 
-        Text(
-            text = "Who will use this phone?",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Medium,
-            color = MaterialTheme.colorScheme.onSurface,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(24.dp, 0.dp, 24.dp, 24.dp)
-        )
+        Spacer(Modifier.size(48.dp))
 
-        // Role selector — two circular buttons side by side
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            RoleCard(
-                role = UserRole.PATIENT,
-                title = "PATIENT",
-                subtitle = "Call for help",
+        FadeSlideIn(delayMs = 100) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = "WHO IS THIS PHONE FOR?",
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = DesignTextSecondary,
+                    letterSpacing = 2.sp
+                )
+                Spacer(Modifier.size(12.dp))
+                Text(
+                    text = "Choose your role",
+                    fontSize = 26.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = DesignTextPrimary
+                )
+                Spacer(Modifier.size(8.dp))
+                Text(
+                    text = "One phone sends the alert,\nthe other responds to it.",
+                    fontSize = 13.5.sp,
+                    color = DesignTextSecondary,
+                    textAlign = TextAlign.Center,
+                    lineHeight = 20.sp
+                )
+            }
+        }
+
+        Spacer(Modifier.size(32.dp))
+
+        FadeSlideIn(delayMs = 200) {
+            RoleCardV2(
+                title = "I may need help",
+                description = "Press & hold SOS to alert my caregivers instantly — no internet needed.",
+                tag = "Patient",
                 icon = Icons.Filled.MedicalServices,
-                color = MaterialTheme.colorScheme.error,
-                onClick = { onRoleSelected(UserRole.PATIENT) },
-                modifier = Modifier.weight(1f)
-            )
-            Spacer(modifier = Modifier.padding(12.dp))
-            RoleCard(
-                role = UserRole.CAREGIVER,
-                title = "CAREGIVER",
-                subtitle = "Alert & respond",
-                icon = Icons.Filled.Visibility,
-                color = MaterialTheme.colorScheme.primary,
-                onClick = { onRoleSelected(UserRole.CAREGIVER) },
-                modifier = Modifier.weight(1f)
+                accent = DesignRed,
+                accentSoft = DesignRedSoft,
+                hero = true,
+                onClick = { onRoleSelected(UserRole.PATIENT) }
             )
         }
 
-        Spacer(modifier = Modifier.padding(24.dp))
+        Spacer(Modifier.size(16.dp))
 
-        // Small footer
-        Text(
-            text = "You can change this later in Settings",
-            fontSize = 14.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(24.dp)
-        )
+        FadeSlideIn(delayMs = 320) {
+            RoleCardV2(
+                title = "I respond to alerts",
+                description = "Get loud full-screen alarms and acknowledge with one tap.",
+                tag = "Caregiver",
+                icon = Icons.Filled.Visibility,
+                accent = DesignCareBlue,
+                accentSoft = DesignCareBlueSoft,
+                hero = false,
+                onClick = { onRoleSelected(UserRole.CAREGIVER) }
+            )
+        }
+
+        Spacer(Modifier.size(28.dp))
+
+        FadeSlideIn(delayMs = 440) {
+            Text(
+                text = "You can change this anytime in Settings",
+                fontSize = 12.sp,
+                color = DesignTextSecondary,
+                textAlign = TextAlign.Center
+            )
+        }
+
+        Spacer(Modifier.size(24.dp))
     }
 }
 
 @Composable
-fun RoleCard(
-    role: UserRole,
+private fun RoleCardV2(
     title: String,
-    subtitle: String,
+    description: String,
+    tag: String,
     icon: androidx.compose.ui.graphics.vector.ImageVector,
-    color: Color,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    accent: androidx.compose.ui.graphics.Color,
+    accentSoft: androidx.compose.ui.graphics.Color,
+    hero: Boolean,
+    onClick: () -> Unit
 ) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Surface(
+        color = DesignSurface,
+        shape = RoundedCornerShape(26.dp),
+        border = androidx.compose.foundation.BorderStroke(
+            width = 1.5.dp,
+            color = if (hero) accent.copy(alpha = 0.5f) else DesignCardBorder
+        ),
+        modifier = Modifier.fillMaxWidth()
     ) {
-        // Circular role button — icon + smaller role title so it fits inside the circle
         Box(
-            modifier = Modifier
-                .size(150.dp)
-                .background(MaterialTheme.colorScheme.surface, CircleShape)
-                .border(2.dp, color.copy(alpha = 0.6f), CircleShape)
-                .clickable(onClick = onClick),
-            contentAlignment = Alignment.Center
+            Modifier
+                .background(
+                    if (hero) accent.copy(alpha = 0.08f) else androidx.compose.ui.graphics.Color.Transparent,
+                    RoundedCornerShape(26.dp)
+                )
+                .clickable(onClick = onClick)
+                .padding(20.dp)
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = "",
-                    modifier = Modifier.size(30.dp),
-                    tint = color
-                )
-                Spacer(modifier = Modifier.padding(8.dp))
-                Text(
-                    text = title,
-                    fontSize = 19.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = color,
-                    textAlign = TextAlign.Center,
-                    maxLines = 1
-                )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    Modifier
+                        .size(56.dp)
+                        .background(accentSoft, RoundedCornerShape(18.dp)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        tint = accent,
+                        modifier = Modifier.size(26.dp)
+                    )
+                }
+                Spacer(Modifier.size(16.dp))
+                Column(Modifier.weight(1f)) {
+                    Text(
+                        text = title,
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = DesignTextPrimary
+                    )
+                    Spacer(Modifier.size(4.dp))
+                    Text(
+                        text = description,
+                        fontSize = 12.5.sp,
+                        color = DesignTextSecondary,
+                        lineHeight = 18.sp
+                    )
+                }
+                Spacer(Modifier.size(12.dp))
+                Surface(
+                    color = accentSoft,
+                    shape = RoundedCornerShape(999.dp)
+                ) {
+                    Text(
+                        text = tag,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = accent,
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                    )
+                }
             }
         }
-        Spacer(modifier = Modifier.padding(10.dp))
-        Text(
-            text = subtitle,
-            fontSize = 12.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(horizontal = 8.dp)
-        )
     }
 }
