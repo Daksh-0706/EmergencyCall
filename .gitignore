@@ -1,0 +1,20 @@
+# Gradle / build outputs
+.gradle/
+build/
+.kotlin/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Machine-specific SDK path (never commit: differs per laptop)
+local.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+
+# Artefacts
+*.apk
+*.aab
+*.jks
+*.keystore
