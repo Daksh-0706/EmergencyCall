@@ -1,7 +1,8 @@
 # AGENTS.md — EmergencyCall working context
 
 > Read this before changing code. Update it when architecture, build steps or design tokens change.
-> Last verified: **25 Nov 2026**, commit `c198331` (main == origin/main, working tree clean).
+> Last verified: **25 Nov 2026**, commit `6ae61db` (main == origin/main, working tree clean,
+> `assembleDebug` green on JDK 21).
 
 ## 1. What the project is
 
@@ -73,7 +74,11 @@ $env:ANDROID_SDK_ROOT = $env:ANDROID_HOME
 .\gradlew.bat assembleDebug --console=plain
 ```
 
-Output: `app\build\outputs\apk\debug\app-debug.apk` (~23 MB).
+Output: `app\build\outputs\apk\debug\app-debug.apk` (~22 MB). Verified green on 25 Nov 2026
+(`BUILD SUCCESSFUL in 9m 19s`, JDK 21, after a clean `.gradle`/`app/build` untrack).
+
+Expected benign warnings, not worth chasing: `navigationBarColor` deprecated in `Theme.kt`, and
+Java 8 source/target deprecation from the current `compileOptions`.
 
 Notes:
 
